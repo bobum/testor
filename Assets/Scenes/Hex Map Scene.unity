@@ -15864,6 +15864,9 @@ MonoBehaviour:
   moveSpeedMinZoom: 400
   moveSpeedMaxZoom: 100
   rotationSpeed: 180
+  tiltSpeed: 20
+  tiltMinAngle: 20
+  tiltMaxAngle: 90
   grid: {fileID: 1571186511}
 --- !u!1 &2104049595
 GameObject:
