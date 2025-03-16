@@ -21,6 +21,9 @@ public class HexMapCamera : MonoBehaviour
     float tiltSpeed;
 
     [SerializeField]
+    float tiltMinAngle = 20f, tiltMaxAngle = 90f;
+
+    [SerializeField]
     HexGrid grid;
 
     Transform swivel, stick;
@@ -91,7 +94,7 @@ public class HexMapCamera : MonoBehaviour
         float distance = Mathf.Lerp(stickMinZoom, stickMaxZoom, zoom);
         stick.localPosition = new Vector3(0f, 0f, distance);
 
-        float angle = Mathf.Lerp(swivelMinZoom, swivelMaxZoom, zoom);
+        float angle = Mathf.Lerp(tiltMaxAngle, tiltMinAngle, zoom);
         swivel.localRotation = Quaternion.Euler(angle, 0f, 0f);
     }
 
@@ -113,7 +116,7 @@ public class HexMapCamera : MonoBehaviour
     {
         float currentTiltAngle = swivel.localRotation.eulerAngles.x;
         if (currentTiltAngle > 180f) currentTiltAngle -= 360f; // Ensure the angle is between -180 and 180 degrees
-        float targetTiltAngle = Mathf.Clamp(currentTiltAngle + delta * tiltSpeed, 0f, 90f);
+        float targetTiltAngle = Mathf.Clamp(currentTiltAngle + delta * tiltSpeed, tiltMinAngle, tiltMaxAngle);
         float smoothTiltAngle = Mathf.Lerp(currentTiltAngle, targetTiltAngle, Time.deltaTime * tiltSpeed);
         swivel.localRotation = Quaternion.Euler(smoothTiltAngle, 0f, 0f);
     }
